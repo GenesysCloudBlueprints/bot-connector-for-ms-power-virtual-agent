@@ -1,0 +1,47 @@
+### GET bots
+GET https://api.mypurecloud.ie/api/v2/integrations/botconnector/22da94ce-26de-489b-99b2-d92a98da6c77/bots
+Authorization: bearer Tvv2e2EwDOIvg2Q5zOkWcRVSY1AuJRMiGl0yBO1_nN_Fyvm-mVo-kGUamYw4rRPKeb_ESJuKHvS8Pe8rqb8syQ
+Content-Type: application/json
+
+### PUT bots
+PUT https://api.mypurecloud.ie/api/v2/integrations/botconnector/22da94ce-26de-489b-99b2-d92a98da6c77/bots
+Authorization: bearer Tvv2e2EwDOIvg2Q5zOkWcRVSY1AuJRMiGl0yBO1_nN_Fyvm-mVo-kGUamYw4rRPKeb_ESJuKHvS8Pe8rqb8syQ
+Content-Type: application/json
+
+{
+  "chatBots": [
+    {
+      "id": "b80cde13-489d-4eab-acad-26893fd9eaf1",
+      "name": "CustomerService",
+      "versions": [
+        {
+          "version": "Delta",
+          "supportedLanguages": [
+            "en-us",
+            "es"
+          ],
+          "intents": [
+            {
+              "name": "Check Stock",
+              "slots": {
+                "The_answer": {
+                  "name": "The_answer",
+                  "type": "String"
+                }
+              }
+            },
+            {
+              "name": "Escalate",
+              "slots": {
+                "The_answer": {
+                  "name": "The_answer",
+                  "type": "String"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
