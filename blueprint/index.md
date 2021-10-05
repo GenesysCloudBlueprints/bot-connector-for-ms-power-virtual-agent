@@ -40,7 +40,7 @@ The application receives the utterances from the Messenger through Genesys Bot C
 *  **Architect flow** - A flow in Architect, a drag and drop web-based design tool, dictates how Genesys Cloud handles inbound or outbound interactions.
 * **Microsoft Azure account** - A cloud computing platform that provides a variety of cloud services for building, testing, deploying, and managing applications through Microsoft-managed data centers. Microsoft Azure hosts the Power VA bot.
 * **AWS** - Amazon Web Services, a cloud computing platform that provides a variety of cloud services such as computing power, database storage, and content delivery. AWS hosts Genesys Cloud.
-* **AWS Lambda** - A serverless computing service for running code without creating or maintaining the underlying infrastructure. In this solution, the Lambda function acts as the bot interpreter application that is written in Python.
+* **AWS Lambda** - A serverless computing service for running code without creating or maintaining the underlying infrastructure. In this solution, you use Lambda functions to build a bot interpreter application in Python.
 * **Amazon API Gateway** - An AWS service for using APIs in a secure and scalable environment. In this solution, the API Gateway exposes a REST endpoint that is protected by an API key. Requests that come to the API Gateway are forwarded to an AWS Lambda.
 * **REST API client** - A method or tool, such as Postman or YARC, that invoke REST API services. In this solution, you send an HTTP PUT request with JSON payload to the Bot Connector API that creates the bot list.
 * **Website with Messenger** - A website with a message window to interact with the bot. It is required to test the solution.
@@ -294,4 +294,5 @@ The bot is added to the bot list and Genesys Cloud Architect uses this list to p
 * [About Web Messaging](https://help.mypurecloud.com/articles/about-web-messaging/ "Opens the About Web Messaging page") in the Genesys Cloud Resource Center
 * [AWS Lambda](https://aws.amazon.com/translate/ "Opens the AWS Lambda page") in the Amazon featured services
 * [Microsoft Power Virtual Agents Overview](https://docs.microsoft.com/en-us/power-virtual-agents/fundamentals-what-is-power-virtual-agents "Opens the Microsoft Power Virtual Agents documentation") in the Microsoft Power VA documentation
-* [Web Messaging](https://help.mypurecloud.com/articles/web-messaging-overview/ "Opens the Web Messaging overview page") in the Genesys Cloud Resource Center
+* [Messenger JavaScript SDK](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/ "Opens the Messenger JavaScript SDK page") in the Genesys Cloud Developer Center
+* [Web messaging Guest API](https://developer.genesys.cloud/api/digital/webmessaging/websocketapi "Opens the Web Messaging Guest API page") in the Genesys Cloud Developer Center
