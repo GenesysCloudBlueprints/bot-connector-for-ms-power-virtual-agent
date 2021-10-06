@@ -7,10 +7,10 @@ icon: blueprint
 image: 
 category: 3
 summary: |
-  his Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through Web Messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector that provides the API and acts as the link between Genesys Cloud and the bot.
+  This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through Web Messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector that provides the API and acts as the link between Genesys Cloud and the bot.
 ---
 
-This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through Web Messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector API that acts as the link between Genesys Cloud and the bot.
+This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through web messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector API that acts as the link between Genesys Cloud and the bot.
 
 ![Web Messaging with Genesys Bot Connector and Microsoft Power VA](images/bot-wm-aws.png "Web Messaging with Genesys Bot Connector and Microsoft Power VA")
 
@@ -20,11 +20,11 @@ This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power 
 
 ## Solution
 
-Genesys Bot Connector provides the API to call third-party bots in an Architect message flow. The blueprint showcases how to connect to the Microsoft Power VA bot to answer customer queries from Genesys Cloud using the AWS services:
+Genesys Bot Connector provides the API to call third-party bots in an Architect message flow. The blueprint showcases how to connect to the Microsoft Power VA bot to answer customer queries through Messenger from Genesys Cloud using the AWS services:
 
 1. Create an application using AWS Lambda functions. The bot interpreter application acts in between Genesys Cloud and Microsoft Power VA. 
 2. In Microsoft Power VA, create a chatbot with topics and entities.
-3. In your website, configure a Messenger.
+3. In your website, configure and deploy a Messenger.
 
 The application receives the utterances from the Messenger through Genesys Bot Connector. It changes the format of the request before sending out an HTTP request to Microsoft Power VA for Natural Language Understanding (NLU). It also converts the response message received from Microsoft Power VA to match the postUtterance API that is provided by the Genesys Bot Connector.
 
@@ -43,7 +43,7 @@ The application receives the utterances from the Messenger through Genesys Bot C
 * **AWS Lambda** - A serverless computing service for running code without creating or maintaining the underlying infrastructure. In this solution, you use Lambda functions to build a bot interpreter application in Python.
 * **Amazon API Gateway** - An AWS service for using APIs in a secure and scalable environment. In this solution, the API Gateway exposes a REST endpoint that is protected by an API key. Requests that come to the API Gateway are forwarded to an AWS Lambda.
 * **REST API client** - A method or tool, such as Postman or YARC, that invoke REST API services. In this solution, you send an HTTP PUT request with JSON payload to the Bot Connector API that creates the bot list.
-* **Web Messaging and Messenger** - Web Messaging provides enhanced experience to your customers who visit your site to have asynchronous conversations with a bot or agent. Messenger provides a predefined message window and launcher button which customers use to interact with bots and agents. In this solution, you require a website configured with Messenger.
+* **Web Messaging and Messenger** - Web Messaging provides enhanced experience to your customers who visit your site to have asynchronous conversations with a bot or agent. Messenger provides a predefined message window and launcher button which customers use to interact with bots and agents. In this solution, a Messenger must be deployed to your website.
   
 
 ## Prerequisites
@@ -295,5 +295,4 @@ The bot is added to the bot list and Genesys Cloud Architect uses this list to p
 * [AWS Lambda](https://aws.amazon.com/translate/ "Opens the AWS Lambda page") in the Amazon featured services
 * [Microsoft Power Virtual Agents Overview](https://docs.microsoft.com/en-us/power-virtual-agents/fundamentals-what-is-power-virtual-agents "Opens the Microsoft Power Virtual Agents documentation") in the Microsoft Power VA documentation
 * [Messenger JavaScript SDK](https://developer.genesys.cloud/api/digital/webmessaging/messengersdk/ "Opens the Messenger JavaScript SDK page") in the Genesys Cloud Developer Center
-* [Web messaging Guest API](https://developer.genesys.cloud/api/digital/webmessaging/websocketapi "Opens the Web Messaging Guest API page") in the Genesys Cloud Developer Center
 * The [bot-connector-for-ms-power-virtual-agent](https://github.com/GenesysCloudBlueprints/bot-connector-for-ms-power-virtual-agent/blob/main/blueprint/index.md "Opens the bot-connector-for-ms-power-virtual-agent repository in GitHub") repository in GitHub
