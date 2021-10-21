@@ -4,7 +4,7 @@ title: Use Web Messaging with Genesys Bot Connector and Microsoft Power VA (Virt
 author: Marc Sassoon and Pierrick Lozach
 indextype: blueprint
 icon: blueprint
-image: 
+image: images/bot-wm-aws.png
 category: 3
 summary: |
   This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through Web Messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector that provides the API and acts as the link between Genesys Cloud and the bot.
@@ -72,13 +72,29 @@ The application receives the utterances from the Messenger through Genesys Bot C
 
 ## Implementation steps
 
-* [Clone the GitHub repository](#clone-the-github-repository "Goes to the Clone the GitHub repository section")
-* [Create a Microsoft Power VA bot](#create_a_power_va_bot "Goes to the Create a Power VA bot section")
-* [Configure AWS services](#configure_aws "Goes to the Configure AWS services section")
-* [Configure Genesys Cloud](#configure_genesys_cloud "Goes to the Configure Genesys Cloud section")
-* [Load the Microsoft Power VA bot to the Genesys Cloud bot list](#load-the-power-va-bot-to-the-genesys-cloud-bot-list "Goes to the Load the Microsoft Power VA bot to the Genesys Cloud bot list section")
-* [Create an Architect flow](#create_architect_flow "Goes to the Create an Architect flow section")
-* [Set up Web Messaging and test the bot](#set-up-web-messaging-and-test-the-bot "Goes to the Set up Web Messaging and test the bot section")
+- [Scenario](#scenario)
+- [Solution](#solution)
+- [Contents](#contents)
+- [Solution components](#solution-components)
+- [Prerequisites](#prerequisites)
+	- [Specialized knowledge](#specialized-knowledge)
+	- [Genesys Cloud account](#genesys-cloud-account)
+	- [AWS account](#aws-account)
+	- [Microsoft Azure account](#microsoft-azure-account)
+- [Implementation steps](#implementation-steps)
+	- [Clone the GitHub repository](#clone-the-github-repository)
+	- [Create a Microsoft Power VA bot](#create-a-microsoft-power-va-bot)
+	- [Configure AWS services](#configure-aws-services)
+	- [Set up Amazon DynamoDB](#set-up-amazon-dynamodb)
+	- [Create a function using AWS Lambda](#create-a-function-using-aws-lambda)
+	- [Add an Amazon API Gateway to the Lambda function](#add-an-amazon-api-gateway-to-the-lambda-function)
+	- [Configure Genesys Cloud](#configure-genesys-cloud)
+	- [Create Genesys Bot Connector integration](#create-genesys-bot-connector-integration)
+	- [Create a custom role in Genesys Cloud](#create-a-custom-role-in-genesys-cloud)
+	- [Load the Power VA bot to the Genesys Cloud bot list](#load-the-power-va-bot-to-the-genesys-cloud-bot-list)
+	- [Create an Architect flow](#create-an-architect-flow)
+	- [Set up Web Messaging and test the bot](#set-up-web-messaging-and-test-the-bot)
+- [Additional resources](#additional-resources)
 
 ### Clone the GitHub repository
 
