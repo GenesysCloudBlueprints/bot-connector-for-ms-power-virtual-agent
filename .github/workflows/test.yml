@@ -1,0 +1,27 @@
+name: Blueprint Linter
+on: [push]
+jobs:
+  validate_content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Required Binaries
+        run: |
+          wget https://github.com/purecloudlabs/devcenter-blueprint-linter/releases/latest/download/gc_linter.zip
+          unzip gc_linter.zip
+          chmod +x ./gc_linter
+          wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O jq
+          chmod +x jq
+          chmod +x ./.github/workflows/display-error.sh
+      - name: Run Validation
+        run: |
+          ./gc_linter ${{ github.workspace }} -c ./blueprint.rule.json -t ./results-template.md.tmpl > result.md
+          ./gc_linter ${{ github.workspace }} -c ./blueprint.rule.json > linter-result.json
+      - name: Upload Log
+        uses: actions/upload-artifact@v3
+        with:
+          name: linter-result
+          path: ./result.md
+      - name: Evaluate Results
+        run: .github/workflows/display-error.sh
+        shell: bash
