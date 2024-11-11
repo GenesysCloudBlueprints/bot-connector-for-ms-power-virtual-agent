@@ -12,7 +12,7 @@ summary: |
 
 This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power Virtual Agent (VA) bot to answer your customer queries through web messaging and Messenger. The blueprint also provides the solution for using a third-party bot that Genesys Cloud does not support as a strategic vendor. The solution uses the Genesys Bot Connector API that acts as the link between Genesys Cloud and the bot.
 
-![Web Messaging with Genesys Bot Connector and Microsoft Power VA](images/bot-wm-aws.png "Web Messaging with Genesys Bot Connector and Microsoft Power VA")
+![Web Messaging with Genesys Bot Connector and Microsoft Power VA](images/overview.png "Web Messaging with Genesys Bot Connector and Microsoft Power VA")
 
 ## Scenario
 
