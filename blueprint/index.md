@@ -16,7 +16,9 @@ This Genesys Cloud Developer Blueprint explains how to deploy a Microsoft Power 
 
 ## Scenario
 
- Genesys Cloud supports and provides the interface for selected chatbot providers such as AWS and Google. Many new chatbot vendors are fast-growing in the market. A customer wants to bring in their preferred third-party bots in the Architect message flows and populate the bot list.
+ Genesys Cloud supports and provides the interface for selected chatbot providers such as AWS and Google. Many new chatbot vendors are fast-growing in the market. A customer wants to bring in their preferred third-party bots in the Architect message flows and populate the bot list.  This provides a sample converter that demonstrates how to translate from the Genesys Bot Connector to a Microsoft Power Virtual Agent chatbot and back.
+
+Note that this sample converter will only work with the classic Power Virtual Agent bots and not the newer Microsoft Copilot bots as the endpoints and calling conventions have changed.  However, this sample could be used as a baseline sample for interfacing with Copilot bots.
 
 ## Solution
 
@@ -72,31 +74,31 @@ The application receives the utterances from the Messenger through Genesys Bot C
 
 ## Implementation steps
 
-- [Scenario](#scenario)
-- [Solution](#solution)
-- [Contents](#contents)
-- [Solution components](#solution-components)
-- [Prerequisites](#prerequisites)
-	- [Specialized knowledge](#specialized-knowledge)
-	- [Genesys Cloud account](#genesys-cloud-account)
-	- [AWS account](#aws-account)
-	- [Microsoft Azure account](#microsoft-azure-account)
-- [Implementation steps](#implementation-steps)
-	- [Clone the GitHub repository](#clone-the-github-repository)
-	- [Create a Microsoft Power VA bot](#create-a-microsoft-power-va-bot)
-	- [Configure AWS services](#configure-aws-services)
-	- [Set up Amazon DynamoDB](#set-up-amazon-dynamodb)
-	- [Create a function using AWS Lambda](#create-a-function-using-aws-lambda)
-	- [Add an Amazon API Gateway to the Lambda function](#add-an-amazon-api-gateway-to-the-lambda-function)
-	- [Configure Genesys Cloud](#configure-genesys-cloud)
-	- [Create Genesys Bot Connector integration](#create-genesys-bot-connector-integration)
-	- [Create a custom role in Genesys Cloud](#create-a-custom-role-in-genesys-cloud)
-	- [Load the Power VA bot to the Genesys Cloud bot list](#load-the-power-va-bot-to-the-genesys-cloud-bot-list)
-	- [Create an Architect flow](#create-an-architect-flow)
-	- [Set up Web Messaging and test the bot](#set-up-web-messaging-and-test-the-bot)
-- [Additional resources](#additional-resources)
+- [Scenario](#scenario "Goes to the Scenario section")
+- [Solution](#solution "Goes to the Solution section")
+- [Contents](#contents "Goes to the contents section")
+- [Solution components](#solution-components "Goes to the Solution Components section")
+- [Prerequisites](#prerequisites "Goes to the Solution appropriate section")
+	- [Specialized knowledge](#specialized-knowledge "Goes to the Specialized knowledge section")
+	- [Genesys Cloud account](#genesys-cloud-account "Goes to the Genesys Cloud account section")
+	- [AWS account](#aws-account "Goes to the AWS account section")
+	- [Microsoft Azure account](#microsoft-azure-account "Goes to the Microsoft Azure account section")
+- [Implementation steps](#implementation-steps "Goes to the Implementation steps section")
+	- [Download the repository containing the project files](#download-the-repository-containing-the-project-files "Shows how to download the repository")
+	- [Create a Microsoft Power VA bot](#create-a-microsoft-power-va-bot "Goes to the Create a Microsoft Power VA bot section")
+	- [Configure AWS services](#configure-aws-services "Goes to the Configure AWS Services section")
+	- [Set up Amazon DynamoDB](#set-up-amazon-dynamodb "Goes to the Setup Amazon DynamoDB section")
+	- [Create a function using AWS Lambda](#create-a-function-using-aws-lambda "Goes to the Create a function using AWS Lambda section")
+	- [Add an Amazon API Gateway to the Lambda function](#add-an-amazon-api-gateway-to-the-lambda-function "Add an Amazon API Gateway to the LAmbda function section")
+	- [Configure Genesys Cloud](#configure-genesys-cloud "Goes to the Configure Genesys Cloud section")
+	- [Create Genesys Bot Connector integration](#create-genesys-bot-connector-integration "Goes to the Create Genesys Bot Connector Integration section")
+	- [Create a custom role in Genesys Cloud](#create-a-custom-role-in-genesys-cloud "Goes to the Create a custom role in Genesys Cloud section")
+	- [Load the Power VA bot to the Genesys Cloud bot list](#load-the-power-va-bot-to-the-genesys-cloud-bot-list "Goes to the Load the Power VA bot to the Genesys Cloud bot list section")
+	- [Create an Architect flow](#create-an-architect-flow "Goes to the Create an Architect Flow section")
+	- [Set up Web Messaging and test the bot](#set-up-web-messaging-and-test-the-bot "Goes to the Set up Web Messaging and test the bot section")
+- [Additional resources](#additional-resources "Goes to the Additional Resources Section")
 
-### Clone the GitHub repository
+### Download the repository containing the project files
 
 1. Clone the GitHub repository [GCBotConnectorPowerVa repository](https://github.com/msassoon/GCBotConnectorPowerVa "Opens the GCBotConnectorPowerVa GitHub repository") to your machine. The `GCBotConnectorPowerVA/src` folder includes the solution-specific Python files:
 	* `Automate_BYOB2MS.py`
