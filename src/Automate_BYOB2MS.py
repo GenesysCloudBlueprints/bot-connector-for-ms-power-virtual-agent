@@ -1,3 +1,4 @@
+import html
 import http.client
 import json
 import time
@@ -5,10 +6,18 @@ import logging
 import bot_sessions
 
 # the token also acts as the bot id
-MS_BOT_AUTHORIZATION_SECRET = "Bearer "
+MS_BOT_AUTHORIZATION_SECRET = "Bearer [ms bot authorization token here]"
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
+# For MS Bots to work properly it's important that the bot conversation ends with a TransferToAgent action which will
+# emit the pertinent session variables and intent (topic) name returned - otherwise this data is not returned back
+# through the API
+
+# Note this sample code is for the classic Microsoft Power Virtual Agents and not the newer Microsoft CoPilot Agents
+# The code for CoPilots should be similar but the endpoints and requests/responses are different.
+
 
 def lambda_handler(event, context):
     logger.info('Event:')
@@ -165,7 +174,7 @@ def convert_ms_response_to_byob(ms_response, bot_session):
             print('message')
             # This is a return message to be sent out to the user
             rv['botState'] = 'MoreData'
-            rv['replymessages'].append(convert_text_response_to_message_format(response))
+            rv['replymessages'] = convert_text_response_to_message_format(response)
             # Likewise with intent, interim slot values aren't returned, we get this back when the conversation is over
             #rv['slotValues'] = None
         elif response['type'] == 'event' and response['name'] == 'handoff.initiate':
@@ -211,7 +220,7 @@ def get_slot_values_from_transfer_to_action_event(response):
             # MS will return both user defined and internal context values in this set - internal variables are
             # helpfully prefixed with 'va_' so we'll presume that any variable that's NOT prefixed with 'va_' is meant
             # to be returned as a detected slot!
-            if key.startswith('va_'):
+            if not key.startswith('va_'):
                 rv[key] = response['value'][key]
 
     return rv
@@ -224,13 +233,62 @@ def get_first_response_type(generic_response):
     return None
 
 def convert_text_response_to_message_format(response):
-    new_msg = dict()
+    rv = list()
     if 'textFormat' in response and response['textFormat'] == 'markdown':
-        if 'text' in response:
-            new_msg['type'] = 'text'
-            new_msg['text'] = response['text']
+        if 'text' in response and response['text'] is not None:
+            # To handle cards/carousels support, have the response message in the MS Bot return the Genesys BotConnector
+            # JSON for the structured response.  This can either be a single structured response (surrounded with '{}'
+            # or a list of responses (surrounded with '[]')
+            # -----
+            # For Example:
+            """
+            [
+                {
+                    "type": "Text",
+                    "text": "Hello, how can I help you today?"
+                },
+                {
+                    "type": "Structured",
+                    "content": [
+                        {
+                            "contentType": "QuickReply",
+                            "quickReply": {
+                                "text": "I want to order cookies"
+                            }
+                        },
+                        {
+                            "contentType": "QuickReply",
+                            "quickReply": {
+                                "text": "I want to book a trip to Paris"
+                            }
+                        }
+                    ]
+                }
+            ]
+            """
+            # MS will escape the response so we need to unescape it...
+            unescaped_response = html.unescape(response['text'])
+            # And we need to do additional clean up on the brackets
+            unescaped_response = unescaped_response.replace('\[', '[')
+            unescaped_response = unescaped_response.replace('\]', ']')
 
-    return new_msg
+            # Check the first character of the response to see if it's Json...
+            if unescaped_response[0] == '{':
+                # Got a brace, parse this as one object.
+                new_msg = json.loads(unescaped_response)
+                rv.append(new_msg)
+            elif unescaped_response[0] == '[':
+                # Got a bracket, parse this as a list
+                rv = json.loads(unescaped_response)
+            else:
+                # No bracket or brace, treat this as a text response.
+                new_msg = dict()
+                new_msg['type'] = 'text'
+                new_msg['text'] = response['text']
+                rv.append(new_msg)
+
+    return rv
+
 
 def convert_entities_to_slots(response_entities):
     rv = dict()
